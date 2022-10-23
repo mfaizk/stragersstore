@@ -1,19 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../app";
 import ErrorScreen from "../screens/ErrorScreen";
 import SignInScreen from "../screens/SignInScreen";
 import WelcomeScreen from "../screens/WelomeScreen";
 import LoadingScreen from "../screens/LoadingScreen";
+import SignUpScreen from "../screens/SignUpScreen";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-    errorElement: <ErrorScreen />,
-    loader: () => <LoadingScreen />,
-  },
-  {
-    path: "/welcome",
     element: <WelcomeScreen />,
     errorElement: <ErrorScreen />,
     loader: () => <LoadingScreen />,
@@ -26,7 +20,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <SignInScreen />,
+    element: <SignUpScreen />,
     errorElement: <ErrorScreen />,
     loader: () => <LoadingScreen />,
   },
