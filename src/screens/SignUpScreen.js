@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { app } from "../configs/firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +12,7 @@ const SignUpScreen = () => {
   const [isChecked, setisChecked] = useState(false);
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const formRef = React.useRef();
+  const auth = getAuth(app);
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwindowWidth(window.innerWidth);
@@ -20,6 +23,9 @@ const SignUpScreen = () => {
     if (email.trim() && password.trim() && cnfPassword.trim()) {
       if (password.trim() === cnfPassword.trim()) {
         toast("loogged in", { bodyStyle: { backgroundColor: "red" } });
+        // createUserWithEmailAndPassword(auth, email, password).then(() => {
+        //   toast("userCreated", { bodyStyle: { backgroundColor: "red" } });
+        // });
         formRef.current.reset();
         setisChecked(false);
       } else {
