@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,25 +17,37 @@ const SignUpScreen = () => {
   }, []);
 
   const loginHandler = () => {
-    if (
-      email.trim() !== "" &&
-      password.trim() !== "" &&
-      cnfPassword.trim() !== ""
-    ) {
+    if (email.trim() && password.trim() && cnfPassword.trim()) {
       if (password.trim() === cnfPassword.trim()) {
-        console.log("logged in");
+        toast("loogged in", { bodyStyle: { backgroundColor: "red" } });
         formRef.current.reset();
         setisChecked(false);
       } else {
-        console.log("password not matching");
+        toastHandler("Password not matching");
+        console.log(formRef.current);
       }
     } else {
-      console.log("Oops Some Error Occured");
+      toastHandler('"Fill information"');
+    }
+  };
+
+  const toastHandler = (msg) => {
+    if (windowWidth > 640) {
+      toast(msg, {
+        position: "top-right",
+        style: { backgroundColor: "#5e0098", color: "#fff" },
+      });
+    } else {
+      toast(msg, {
+        position: "bottom-right",
+        style: { backgroundColor: "#5e0098", color: "#fff" },
+      });
     }
   };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat ">
+      <ToastContainer />
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
         <div className="flex sm:hidden text-white self-start p-4">Sign up</div>
         <div className="lg:min-w-[508px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">
@@ -106,7 +120,7 @@ const SignUpScreen = () => {
             </label>
             <button
               className={`${
-                isChecked ? "bg-[#5e0098]" : "bg-[#9a3dd4]"
+                !isChecked ? "bg-[#9a3dd4]" : "bg-[#5e0098]"
               } text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
               about="Signup"
               disabled={!isChecked}
