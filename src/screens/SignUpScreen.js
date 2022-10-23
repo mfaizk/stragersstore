@@ -2,12 +2,35 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 const SignUpScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cnfPassword, setCnfPassword] = useState("");
+  const [isChecked, setisChecked] = useState(false);
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+  const formRef = React.useRef();
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwindowWidth(window.innerWidth);
     });
   }, []);
+
+  const loginHandler = () => {
+    if (
+      email.trim() !== "" &&
+      password.trim() !== "" &&
+      cnfPassword.trim() !== ""
+    ) {
+      if (password.trim() === cnfPassword.trim()) {
+        console.log("logged in");
+        formRef.current.reset();
+        setisChecked(false);
+      } else {
+        console.log("password not matching");
+      }
+    } else {
+      console.log("Oops Some Error Occured");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat ">
@@ -27,25 +50,41 @@ const SignUpScreen = () => {
           )}
         </div>
         <div className="bg-white lg:min-h-[556px]   lg:min-w-[508px] sm:min-w-[254px] min-w-full grow">
-          <div className="flex justify-start items-start flex-col lg:min-h-[556px]  p-8 gap-4">
+          <form
+            className="flex justify-start items-start flex-col lg:min-h-[556px]  p-8 gap-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              loginHandler();
+            }}
+            ref={formRef}
+          >
             <h1 className="text-2xl font-semibold">Sign up to continue</h1>
             <input
               type="text"
               id="email"
               className="border-[#D1D5DB] border-2 min-w-full h-[38px] rounded-md p-2"
               placeholder="Email"
+              onChange={(v) => {
+                setEmail(v.currentTarget.value);
+              }}
             />
             <input
               type="password"
               id="password"
               className="border-[#D1D5DB] border-2 min-w-full h-[38px] rounded-md p-2"
               placeholder="Password"
+              onChange={(v) => {
+                setPassword(v.currentTarget.value);
+              }}
             />
             <input
               type="password"
               id="password"
               className="border-[#D1D5DB] border-2 min-w-full h-[38px] rounded-md p-2"
               placeholder="Confirm password"
+              onChange={(v) => {
+                setCnfPassword(v.currentTarget.value);
+              }}
             />
             <label id="privacy">
               {" "}
@@ -54,6 +93,9 @@ const SignUpScreen = () => {
                 name="privacy"
                 id="privacy"
                 className="mr-2"
+                onChange={() => {
+                  setisChecked(!isChecked);
+                }}
               />
               I accept{" "}
               <span className="text-[#4C1D95] font-semibold">Terms of Use</span>{" "}
@@ -62,9 +104,15 @@ const SignUpScreen = () => {
                 Privacy Policy
               </span>
             </label>
-            <Link className="bg-[#5e0098] text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center">
+            <button
+              className={`${
+                isChecked ? "bg-[#5e0098]" : "bg-[#9a3dd4]"
+              } text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
+              about="Signup"
+              disabled={!isChecked}
+            >
               Sign up
-            </Link>
+            </button>
 
             <div className="flex items-center justify-center min-w-full gap-2">
               <div className="h-[1px] bg-[#E5E7EB] w-[40%]"></div>
@@ -79,7 +127,7 @@ const SignUpScreen = () => {
               Already have an account?
               <Link className="text-[#4C1D95] ml-1"> Sign in</Link>
             </h1>
-          </div>
+          </form>
         </div>
       </div>
     </div>
