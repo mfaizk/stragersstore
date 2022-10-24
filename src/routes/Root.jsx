@@ -2,15 +2,15 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ErrorScreen from "../screens/ErrorScreen";
 import SignInScreen from "../screens/SignInScreen";
 import WelcomeScreen from "../screens/WelomeScreen";
-import LoadingScreen from "../screens/LoadingScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import HomeScreen from "../screens/HomeScreen";
+import LoadingScreen from "../screens/LoadingScreen";
 import useAuthStore from "../stores/authStore";
 import { useEffect, useState } from "react";
 import { app } from "../configs/firebaseConfig";
 import { getAuth } from "firebase/auth";
 const Root = () => {
-  const [initUser, setInitUser] = useState(null);
+  const [initUser, setInitUser] = useState("");
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
   useEffect(() => {
@@ -21,7 +21,9 @@ const Root = () => {
     });
   }, []);
 
-  return (
+  return initUser == "" ? (
+    <LoadingScreen />
+  ) : (
     <BrowserRouter basename="/">
       <Routes>
         <Route
@@ -61,6 +63,7 @@ const Root = () => {
           }
           errorElement={<ErrorScreen />}
         />
+        <Route path="*" element={<ErrorScreen />} />
       </Routes>
     </BrowserRouter>
   );

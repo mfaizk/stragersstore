@@ -10,6 +10,7 @@ import {
   signInWithCredential,
 } from "firebase/auth";
 import { app } from "../configs/firebaseConfig";
+import { Root } from "postcss";
 
 const auth = getAuth(app);
 
@@ -26,8 +27,8 @@ const authStore = (set) => ({
       .promise(
         createUserWithEmailAndPassword(auth, email, password),
         {
-          pending: "Loggin In",
-          success: "Logged In Sucess",
+          pending: "Creating user account",
+          success: "Account created Sucessfully",
           error: {
             render({ data }) {
               return data.message;
@@ -53,6 +54,32 @@ const authStore = (set) => ({
       }));
       return <Navigate to={"/welcome"} replace={true} />;
     });
+  },
+  signinHandler: (email, password) => {
+    let e = "OOps error occureed";
+    toast
+      .promise(
+        signInWithEmailAndPassword(auth, email, password),
+        {
+          pending: "Loggin In",
+          success: "Logged In Sucess",
+          error: {
+            render({ data }) {
+              return data.message;
+            },
+          },
+        },
+        { position: window.innerWidth > 640 ? "top-right" : "bottom-right" }
+      )
+      .then((u) => {
+        set((state) => ({
+          user: u.user,
+        }));
+      })
+      .catch((err) => {
+        e = err.message;
+        console.log(e);
+      });
   },
 });
 
