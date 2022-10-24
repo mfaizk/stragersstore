@@ -3,13 +3,14 @@ import useAuthStore from "../stores/authStore";
 
 function HomeScreen() {
   const signOut = useAuthStore((state) => state.signOutHandler);
+  const user = useAuthStore((state) => state.user);
   return (
     <div
       onClick={() => {
         signOut();
       }}
     >
-      HomeScreen
+      {"Welcome " + user?.email}
     </div>
   );
 }
