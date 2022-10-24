@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../stores/authStore";
 
 const WelcomeScreen = () => {
+  const user = useAuthStore((state) => state.user);
   const [currentWidth, setcurrentWidth] = useState(0);
   useEffect(() => {
     window.addEventListener("resize", () => {

@@ -16,5 +16,6 @@ const firebaseConfig = {
 
   measurementId: "G-MBD3TP0ENG",
 };
+// console.log("ruuning");
 export const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { app } from "../configs/firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import useAuthStore from "../stores/authStore";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,19 +14,25 @@ const SignUpScreen = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const formRef = React.useRef();
   const auth = getAuth(app);
+
+  const user = useAuthStore((state) => state.user);
+  const signupHandler = useAuthStore((state) => state.signupHandler);
+
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwindowWidth(window.innerWidth);
     });
+    console.log(user);
   }, []);
 
   const loginHandler = () => {
     if (email.trim() && password.trim() && cnfPassword.trim()) {
       if (password.trim() === cnfPassword.trim()) {
-        toast("loogged in", { bodyStyle: { backgroundColor: "red" } });
+        // toast("loogged in", { bodyStyle: { backgroundColor: "red" } });
         // createUserWithEmailAndPassword(auth, email, password).then(() => {
         //   toast("userCreated", { bodyStyle: { backgroundColor: "red" } });
         // });
+        signupHandler(email, password);
         formRef.current.reset();
         setisChecked(false);
       } else {
