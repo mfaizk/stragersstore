@@ -1,7 +1,7 @@
 import React from "react";
 import useAuthStore from "../stores/authStore";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 function HomeScreen() {
   const signOut = useAuthStore((state) => state.signOutHandler);
@@ -13,6 +13,7 @@ function HomeScreen() {
       }}
     >
       {"Welcome " + user?.email}
+      <ToastContainer />
     </div>
   );
 }

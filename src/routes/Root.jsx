@@ -14,14 +14,14 @@ const Root = () => {
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
   useEffect(() => {
-    getAuth(app).onAuthStateChanged((u, e, c) => {
+    getAuth(app).onAuthStateChanged((u) => {
       setUser(u);
       setInitUser(u);
-      console.log(u);
     });
-  }, []);
+    console.log("Runned");
+  }, [setUser]);
 
-  return initUser == "" ? (
+  return initUser === "" ? (
     <LoadingScreen />
   ) : (
     <BrowserRouter basename="/">

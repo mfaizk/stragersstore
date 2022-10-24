@@ -1,5 +1,5 @@
 import create from "zustand";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate } from "react-router";
 import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import {
@@ -7,10 +7,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  signInWithCredential,
 } from "firebase/auth";
 import { app } from "../configs/firebaseConfig";
-import { Root } from "postcss";
 
 const auth = getAuth(app);
 
@@ -47,7 +45,7 @@ const authStore = (set) => ({
         console.log(e);
       });
   },
-  signOutHandler: (set) => {
+  signOutHandler: () => {
     signOut(auth).then(() => {
       set((state) => ({
         user: null,

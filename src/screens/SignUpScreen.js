@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { app } from "../configs/firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import useAuthStore from "../stores/authStore";
 const SignUpScreen = () => {
   const [email, setEmail] = useState("");
@@ -13,16 +11,13 @@ const SignUpScreen = () => {
   const [isChecked, setisChecked] = useState(false);
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const formRef = React.useRef();
-  const auth = getAuth(app);
 
-  const user = useAuthStore((state) => state.user);
   const signupHandler = useAuthStore((state) => state.signupHandler);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwindowWidth(window.innerWidth);
     });
-    console.log(user);
   }, []);
 
   const loginHandler = () => {

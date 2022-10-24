@@ -10,14 +10,12 @@ const SignInScreen = () => {
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const formRef = React.useRef();
 
-  const user = useAuthStore((state) => state.user);
   const signinHandler = useAuthStore((state) => state.signinHandler);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
       setwindowWidth(window.innerWidth);
     });
-    console.log(user);
   }, []);
 
   const loginHandler = () => {
