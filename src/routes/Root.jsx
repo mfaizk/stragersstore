@@ -9,6 +9,7 @@ import useAuthStore from "../stores/authStore";
 import { useEffect, useState } from "react";
 import { app } from "../configs/firebaseConfig";
 import { getAuth } from "firebase/auth";
+import FormScreen from "../screens/FormScreen";
 const Root = () => {
   const [initUser, setInitUser] = useState("");
   const user = useAuthStore((state) => state.user);
@@ -42,6 +43,12 @@ const Root = () => {
           element={user ? <HomeScreen /> : <Navigate to={"/"} replace={true} />}
           errorElement={<ErrorScreen />}
         />
+        <Route
+          path={"/userdetail"}
+          element={user ? <FormScreen /> : <Navigate to={"/"} replace={true} />}
+          errorElement={<ErrorScreen />}
+        />
+
         <Route
           path="/welcome"
           element={
