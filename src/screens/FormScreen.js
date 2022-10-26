@@ -1,11 +1,19 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 
 const FormScreen = () => {
-  return (
+
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  // const [Gender, setGender] = useState("");
+  // const [loaction, setLoaction] = useState("");
+  // const [isChecked, setisChecked] = useState(false);
+  // const [code, setCode] = useState("");
+   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat">
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
       {/* <div className="flex sm:hidden text-white self self-start p-4 ">FORM</div> */}
@@ -78,7 +86,7 @@ const FormScreen = () => {
         placeholder="code"
         className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 mt-1"
         />
-        
+
       <Link
         className=" bg-[#5e0098] text-[#ffffff] border-white border-2  p-1 flex items-center justify-center self-center mt-9 px-9 rounded-md "
         
