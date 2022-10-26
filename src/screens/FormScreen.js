@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const FormScreen = () => {
-  // const [firstName, setFirstName] = useState("");
+  const [fname, setFname] = useState("");
   // const [lastName, setLastName] = useState("");
   // const [phoneNumber, setPhoneNumber] = useState("");
   // const [Gender, setGender] = useState("");
   // const [loaction, setLoaction] = useState("");
   // const [isChecked, setisChecked] = useState(false);
   // const [code, setCode] = useState("");
+  const [isChecked, setisChecked] = useState(true);
+
+  const formHandler = () => {
+    console.log(fname);
+  };
+
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat">
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
@@ -34,6 +40,9 @@ const FormScreen = () => {
               id="name"
               placeholder="First Name"
               className="border-[#D1D5DB] border-2  h-[38px]  rounded-md  p-2 "
+              onChange={(t) => {
+                setFname(t.currentTarget.value.toString());
+              }}
             />
             {/* lsat name */}
             <input
@@ -65,7 +74,16 @@ const FormScreen = () => {
             />
             {/* checkbox */}
             <label id="admin" className="mr-36">
-              <input type="checkbox" name="Is Admin" id="admin" className=" " />{" "}
+              <input
+                type="checkbox"
+                name="Is Admin"
+                id="admin"
+                className=" "
+                checked={!isChecked}
+                onChange={() => {
+                  setisChecked(!isChecked);
+                }}
+              />{" "}
               Is Admin{" "}
             </label>
             <input
@@ -73,9 +91,15 @@ const FormScreen = () => {
               id="admin"
               placeholder="code"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 mt-1"
+              disabled={isChecked}
             />
 
-            <Link className=" bg-[#5e0098] text-[#ffffff] border-white border-2  p-1 flex items-center justify-center self-center mt-9 px-9 rounded-md ">
+            <Link
+              className=" bg-[#5e0098] text-[#ffffff] border-white border-2  p-1 flex items-center justify-center self-center mt-9 px-9 rounded-md "
+              onClick={() => {
+                formHandler();
+              }}
+            >
               Submit
             </Link>
           </form>
