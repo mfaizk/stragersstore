@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuthStore from "../stores/authStore";
 // import { FaFacebook } from "react-icons/fa";
 
 const FormScreen = () => {
   const [fname, setFname] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [Gender, setGender] = useState("");
-  // const [loaction, setLoaction] = useState("");
-  // const [isChecked, setisChecked] = useState(false);
-  // const [code, setCode] = useState("");
+  const [lName, setlName] = useState("");
+  const [phNumber, setPhNumber] = useState("");
+  const [Gender, setGender] = useState("");
+  const [location, setLoaction] = useState("");
   const [isChecked, setisChecked] = useState(true);
+  const [code, setCode] = useState("");
+  
+  // const userdetail = useAuthStore((state) => state.userdetail)
 
   const formHandler = () => {
     console.log(fname);
+    console.log(lName);
+    console.log(phNumber);
+    console.log(Gender);
+    console.log(location);
+    console.log(code)
   };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat">
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
-        {/* <div className="flex sm:hidden text-white self self-start p-4 ">FORM</div> */}
+        
         <div className="lg:min-w-[580px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">
           <div className="flex flex-col justify-start sm:self-start flex-1 p-4 self-center text-white">
             <img
@@ -51,6 +58,9 @@ const FormScreen = () => {
               id="name"
               placeholder="Last Name"
               className="border-[#D1D5DB] border-2 h-[38px] rounded-md p-2  "
+              onChange={(t) => {
+                setlName(t.currentTarget.value.toString());
+              }}
             />
             {/* phone number */}
             <input
@@ -58,6 +68,10 @@ const FormScreen = () => {
               id="name"
               placeholder="+91 7007679112"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 "
+              onChange={(t) => {
+                setPhNumber(t.currentTarget.value);
+                
+              }}
             />
             {/* gender */}
             <input
@@ -65,6 +79,9 @@ const FormScreen = () => {
               id="name"
               placeholder="Gender"
               className="border-[#D1D5DB] border-2 h-[38px] rounded-md p-2 "
+              onChange={(t) =>{
+                setGender(t.currentTarget.value.toString());
+              }}
             />
             {/* location */}
             <input
@@ -72,6 +89,9 @@ const FormScreen = () => {
               id="name"
               placeholder="Location"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 "
+              onChange={(t) =>{
+                setLoaction(t.currentTarget.value);
+              }}
             />
             {/* checkbox */}
             <label id="admin" className="mr-36">
@@ -93,6 +113,9 @@ const FormScreen = () => {
               placeholder="code"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 mt-1"
               disabled={isChecked}
+              onChange={(t)=>{
+                setCode(t.currentTarget.value.toString())
+              }}
             />
 
             <Link
