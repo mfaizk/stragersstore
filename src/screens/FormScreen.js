@@ -4,7 +4,6 @@ import { app } from "../configs/firebaseConfig";
 import { getDatabase, set, ref } from "firebase/database";
 import { toast, ToastContainer } from "react-toastify";
 import useAuthStore from "../stores/authStore";
-import { render } from "@testing-library/react";
 // import { FaFacebook } from "react-icons/fa";
 const database = getDatabase(app);
 const FormScreen = () => {
@@ -30,7 +29,7 @@ const FormScreen = () => {
             phNumber,
             gender,
             location,
-            code: "",
+            code,
           }),
           {
             pending: {
