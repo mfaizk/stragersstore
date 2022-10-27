@@ -8,41 +8,36 @@ import {
   signOut,
 } from "firebase/auth";
 import { app } from "../configs/firebaseConfig";
-import { FirebaseError } from "firebase/app";
 
 const auth = getAuth(app);
 
 const authStore = (set) => ({
   user: getAuth(app)?.currentUser,
+  isClicked: false,
   setUser: async (u) => {
     set((state) => ({
       user: u,
     }));
   },
   signupHandler: (email, password) => {
+    const toastId = "signupUpdate";
+    set((state) => ({
+      isClicked: true,
+    }));
     let e = "OOps error occureed";
-    toast
-      .promise(
-        createUserWithEmailAndPassword(auth, email, password),
-        {
-          pending: "Creating user account",
-          success: "Account created Sucessfully",
-          error: {
-            render({ data }) {
-              return data.message;
-            },
-          },
-        },
-        { position: window.innerWidth > 640 ? "top-right" : "bottom-right" }
-      )
+    createUserWithEmailAndPassword(auth, email, password)
       .then((u) => {
         set((state) => ({
           user: u.user,
+          isClicked: false,
         }));
+        toastHandler("UAC created", toastId, "success");
       })
       .catch((err) => {
-        e = err.message;
-        console.log(e);
+        toastHandler(err.message, toastId, "error");
+        set((state) => ({
+          isClicked: false,
+        }));
       });
   },
   signOutHandler: () => {
@@ -57,11 +52,14 @@ const authStore = (set) => ({
     const toastId = "signinUpdate";
     // toast.loading("logging in", { toastId: toastId });
     // toastHandler("logging in", toastId, "info");
-
+    set((state) => ({
+      isClicked: true,
+    }));
     signInWithEmailAndPassword(auth, email, password)
       .then((u) => {
         set((state) => ({
           user: u.user,
+          isClicked: false,
         }));
         // toast.success("Logging in sucessfully", { toastId: toastId });
         toastHandler("Logging in sucessfully", toastId, "success");
@@ -70,6 +68,9 @@ const authStore = (set) => ({
         // toast.error(e, { toastId: toastId });
         toastHandler(err.message, toastId, "error");
         console.log(err);
+        set((state) => ({
+          isClicked: false,
+        }));
       });
   },
 });

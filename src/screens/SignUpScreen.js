@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import Lottie from "react-lottie";
+import * as clickedAnimationData from "../assets/clicked.json";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../stores/authStore";
 const SignUpScreen = () => {
@@ -13,6 +15,7 @@ const SignUpScreen = () => {
   const formRef = React.useRef();
 
   const signupHandler = useAuthStore((state) => state.signupHandler);
+  const isClicked = useAuthStore((state) => state.isClicked);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -125,29 +128,45 @@ const SignUpScreen = () => {
                 Privacy Policy
               </span>
             </label>
-            <button
-              className={`${
-                !isChecked ? "bg-[#9a3dd4]" : "bg-[#5e0098]"
-              } text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
-              about="Signup"
-              disabled={!isChecked}
-            >
-              Sign up
-            </button>
+            {isClicked ? (
+              <>
+                <Lottie
+                  options={{ animationData: clickedAnimationData, loop: true }}
+                  height={150}
+                  width={200}
+                />
+              </>
+            ) : (
+              <button
+                className={`${
+                  !isChecked ? "bg-[#9a3dd4]" : "bg-[#5e0098]"
+                } text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
+                about="Signup"
+                disabled={!isChecked}
+              >
+                Sign up
+              </button>
+            )}
 
-            <div className="flex items-center justify-center min-w-full gap-2">
-              <div className="h-[1px] bg-[#E5E7EB] w-[40%]"></div>
-              <span className="text-[#9CA3AF]">or</span>
-              <div className="h-[1px] bg-[#E5E7EB] w-[40%]"></div>
-            </div>
-            <div className="flex self-center gap-3">
-              <SiFacebook size={24} />
-              <SiGoogle size={24} />
-            </div>
-            <h1 className="flex self-center mt-auto text-[#6B7280]">
-              Already have an account?
-              <Link className="text-[#4C1D95] ml-1"> Sign in</Link>
-            </h1>
+            {isClicked ? (
+              <></>
+            ) : (
+              <>
+                <div className="flex items-center justify-center min-w-full gap-2">
+                  <div className="h-[1px] bg-[#E5E7EB] w-[40%]"></div>
+                  <span className="text-[#9CA3AF]">or</span>
+                  <div className="h-[1px] bg-[#E5E7EB] w-[40%]"></div>
+                </div>
+                <div className="flex self-center gap-3">
+                  <SiFacebook size={24} />
+                  <SiGoogle size={24} />
+                </div>
+                <h1 className="flex self-center mt-auto text-[#6B7280]">
+                  Already have an account?
+                  <Link className="text-[#4C1D95] ml-1"> Sign in</Link>
+                </h1>
+              </>
+            )}
           </form>
         </div>
       </div>

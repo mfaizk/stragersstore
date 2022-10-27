@@ -33,34 +33,21 @@ const FormScreen = () => {
       if (!Number(phNumber)) {
         toast.error("Please Enter number in phone number");
       } else {
-        toast.promise(
-          set(ref(database, "users/" + user.uid), {
-            fName,
-            lName,
-            phNumber,
-            gender,
-            location,
-            code,
-          }),
-          {
-            pending: {
-              render() {
-                return "Sending Data";
-              },
-            },
-            success: {
-              render() {
-                navigate("/home");
-                return "Data saved";
-              },
-            },
-            error: {
-              render() {
-                return "Unable to save data";
-              },
-            },
-          }
-        );
+        set(ref(database, "users/" + user.uid), {
+          fName,
+          lName,
+          phNumber,
+          gender,
+          location,
+          code,
+        })
+          .then(() => {
+            toast.success("Info Saved");
+            navigate("/home");
+          })
+          .catch((e) => {
+            toast.error(e.message);
+          });
       }
     } else {
       toast.error("Fill form properly");
