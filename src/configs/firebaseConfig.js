@@ -15,6 +15,8 @@ const firebaseConfig = {
   appId: "1:1057722592693:web:5cb874066f13a05f987dfc",
 
   measurementId: "G-MBD3TP0ENG",
+
+  databaseURL: "https://strangerstore-a32fe-default-rtdb.firebaseio.com/",
 };
 // console.log("ruuning");
 export const app = initializeApp(firebaseConfig);

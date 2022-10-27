@@ -1,5 +1,4 @@
 import create from "zustand";
-import { Navigate } from "react-router";
 import { devtools } from "zustand/middleware";
 import { toast } from "react-toastify";
 import {
@@ -50,7 +49,7 @@ const authStore = (set) => ({
       set((state) => ({
         user: null,
       }));
-      return <Navigate to={"/welcome"} replace={true} />;
+      // return <Navigate to={"/welcome"} replace={true} />;
     });
   },
   signinHandler: (email, password) => {

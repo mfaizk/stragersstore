@@ -1,32 +1,70 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { app } from "../configs/firebaseConfig";
+import { getDatabase, set, ref } from "firebase/database";
+import { toast, ToastContainer } from "react-toastify";
 import useAuthStore from "../stores/authStore";
+import { render } from "@testing-library/react";
 // import { FaFacebook } from "react-icons/fa";
-
+const database = getDatabase(app);
 const FormScreen = () => {
-  const [fname, setFname] = useState("");
+  const [fName, setFname] = useState("");
   const [lName, setlName] = useState("");
   const [phNumber, setPhNumber] = useState("");
-  const [Gender, setGender] = useState("");
+  const [gender, setGender] = useState("");
   const [location, setLoaction] = useState("");
   const [isChecked, setisChecked] = useState(true);
   const [code, setCode] = useState("");
-  
-  // const userdetail = useAuthStore((state) => state.userdetail)
+
+  const user = useAuthStore((state) => state.user);
 
   const formHandler = () => {
-    console.log(fname);
-    console.log(lName);
-    console.log(phNumber);
-    console.log(Gender);
-    console.log(location);
-    console.log(code)
+    if (fName && lName && phNumber && gender && location) {
+      if (!Number(phNumber)) {
+        toast.error("Please Enter number in phone number");
+      } else {
+        toast.promise(
+          set(ref(database, "users/" + user.uid), {
+            fName,
+            lName,
+            phNumber,
+            gender,
+            location,
+            code: "",
+          }),
+          {
+            pending: {
+              render() {
+                return "Sending Data";
+              },
+            },
+            success: {
+              render() {
+                return "Data saved";
+              },
+            },
+            error: {
+              render() {
+                return "Unable to save data";
+              },
+            },
+          }
+        );
+      }
+    } else {
+      toast.error("Fill form properly");
+      console.log(fName);
+      console.log(lName);
+      console.log(phNumber);
+      console.log(gender);
+      console.log(location);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat">
+      <ToastContainer />
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
-        
         <div className="lg:min-w-[580px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">
           <div className="flex flex-col justify-start sm:self-start flex-1 p-4 self-center text-white">
             <img
@@ -64,13 +102,12 @@ const FormScreen = () => {
             />
             {/* phone number */}
             <input
-              type="number"
+              type="text"
               id="name"
               placeholder="+91 7007679112"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 "
               onChange={(t) => {
-                setPhNumber(t.currentTarget.value);
-                
+                setPhNumber(t.currentTarget.value.toString());
               }}
             />
             {/* gender */}
@@ -79,7 +116,7 @@ const FormScreen = () => {
               id="name"
               placeholder="Gender"
               className="border-[#D1D5DB] border-2 h-[38px] rounded-md p-2 "
-              onChange={(t) =>{
+              onChange={(t) => {
                 setGender(t.currentTarget.value.toString());
               }}
             />
@@ -89,7 +126,7 @@ const FormScreen = () => {
               id="name"
               placeholder="Location"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 "
-              onChange={(t) =>{
+              onChange={(t) => {
                 setLoaction(t.currentTarget.value);
               }}
             />
@@ -113,8 +150,8 @@ const FormScreen = () => {
               placeholder="code"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 mt-1"
               disabled={isChecked}
-              onChange={(t)=>{
-                setCode(t.currentTarget.value.toString())
+              onChange={(t) => {
+                setCode(t.currentTarget.value.toString());
               }}
             />
 
