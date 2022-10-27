@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../stores/authStore";
 const SignInScreen = () => {
@@ -23,27 +23,12 @@ const SignInScreen = () => {
       signinHandler(email, password);
       formRef.current.reset();
     } else {
-      toastHandler('"Fill information"');
-    }
-  };
-
-  const toastHandler = (msg) => {
-    if (windowWidth > 640) {
-      toast(msg, {
-        position: "top-right",
-        style: { backgroundColor: "#5e0098", color: "#fff" },
-      });
-    } else {
-      toast(msg, {
-        position: "bottom-right",
-        style: { backgroundColor: "#5e0098", color: "#fff" },
-      });
+      toast.error('"Fill information"');
     }
   };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat ">
-      <ToastContainer />
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
         <div className="flex sm:hidden text-white self-start p-4">Sign in</div>
         <div className="lg:min-w-[508px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">

@@ -55,7 +55,6 @@ const SignUpScreen = () => {
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat ">
-      <ToastContainer />
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
         <div className="flex sm:hidden text-white self-start p-4">Sign up</div>
         <div className="lg:min-w-[508px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">

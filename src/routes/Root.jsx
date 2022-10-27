@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { app } from "../configs/firebaseConfig";
 import { getAuth } from "firebase/auth";
 import FormScreen from "../screens/FormScreen";
+import { ToastContainer } from "react-toastify";
 const Root = () => {
   const [initUser, setInitUser] = useState("");
   const user = useAuthStore((state) => state.user);
@@ -26,6 +27,7 @@ const Root = () => {
     <LoadingScreen />
   ) : (
     <BrowserRouter basename="/">
+      <ToastContainer />
       <Routes>
         <Route
           path="/"

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { app } from "../configs/firebaseConfig";
 import { getDatabase, set, ref } from "firebase/database";
 import { toast, ToastContainer } from "react-toastify";
 import useAuthStore from "../stores/authStore";
+import { useLocation } from "react-router-dom";
 // import { FaFacebook } from "react-icons/fa";
 const database = getDatabase(app);
 const FormScreen = () => {
@@ -16,6 +17,16 @@ const FormScreen = () => {
   const [code, setCode] = useState("");
 
   const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
+  const paramLocation = useLocation();
+
+  useEffect(() => {
+    let msg = paramLocation?.state?.msg;
+    if (msg !== "") {
+      toast.warn(msg);
+    }
+    console.log(msg);
+  }, []);
 
   const formHandler = () => {
     if (fName && lName && phNumber && gender && location) {
@@ -39,6 +50,7 @@ const FormScreen = () => {
             },
             success: {
               render() {
+                navigate("/home");
                 return "Data saved";
               },
             },
@@ -52,17 +64,11 @@ const FormScreen = () => {
       }
     } else {
       toast.error("Fill form properly");
-      console.log(fName);
-      console.log(lName);
-      console.log(phNumber);
-      console.log(gender);
-      console.log(location);
     }
   };
 
   return (
     <div className="min-h-screen bg-[#410068] flex justify-center items-center font-montserrat">
-      <ToastContainer />
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
         <div className="lg:min-w-[580px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">
           <div className="flex flex-col justify-start sm:self-start flex-1 p-4 self-center text-white">
@@ -101,7 +107,7 @@ const FormScreen = () => {
             />
             {/* phone number */}
             <input
-              type="text"
+              type="tel"
               id="name"
               placeholder="+91 7007679112"
               className="border-[#D1D5DB] border-2  h-[38px] rounded-md p-2 "
