@@ -10,7 +10,7 @@ const FormScreen = () => {
   const [fName, setFname] = useState("");
   const [lName, setlName] = useState("");
   const [phNumber, setPhNumber] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("male");
   const [location, setLoaction] = useState("");
   const [isChecked, setisChecked] = useState(true);
   const [code, setCode] = useState("");
@@ -77,8 +77,8 @@ const FormScreen = () => {
           </div>
         </div>
         {/* details field */}
-        <div className="bg-white lg:min-h-[556px]   lg:min-w-[508px] sm:min-w-[254px] min-w-full grow">
-          <form className="flex justify-center items-center flex-col lg:min-h-[556px] p-8  gap-2">
+        <div className="bg-white lg:min-h-[556px]   lg:min-w-[508px] sm:min-w-[254px] min-w-full grow p-8 flex justify-center items-center">
+          <form className="flex justify-center items-start flex-col  gap-3  min-w-min ">
             {/* first name */}
             <input
               type="text"
@@ -110,15 +110,23 @@ const FormScreen = () => {
               }}
             />
             {/* gender */}
-            <input
-              type="text"
-              id="name"
-              placeholder="Gender"
-              className="border-[#D1D5DB] border-2 h-[38px] rounded-md p-2 "
-              onChange={(t) => {
-                setGender(t.currentTarget.value.toString());
-              }}
-            />
+            {/* className="border-[#D1D5DB] border-2 h-[38px] rounded-md p-2 " */}
+            <div className="flex justify-between  min-w-full">
+              <label className=" ">Gender</label>
+              <select
+                className="rounded-sm bg-white border-[#D1D5DB] border-2"
+                onChange={(t) => {
+                  setGender(t.target.value);
+                  // console.log(t.target.value);
+                }}
+                defaultValue={gender}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+
             {/* location */}
             <input
               type="text"
@@ -141,7 +149,7 @@ const FormScreen = () => {
                   setisChecked(!isChecked);
                 }}
               />{" "}
-              Is Admin{" "}
+              Admin{" "}
             </label>
             <input
               type="text"
@@ -153,11 +161,11 @@ const FormScreen = () => {
                 setCode(t.currentTarget.value.toString());
               }}
             />
-
             <Link
               className=" bg-[#5e0098] text-[#ffffff] border-white border-2  p-1 flex items-center justify-center self-center mt-9 px-9 rounded-md "
               onClick={() => {
                 formHandler();
+                // console.log(gender);
               }}
             >
               Submit
