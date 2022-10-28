@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 import { toast } from "react-toastify";
@@ -10,17 +10,10 @@ import Lottie from "react-lottie";
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const formRef = React.useRef();
 
   const signinHandler = useAuthStore((state) => state.signinHandler);
   const isClicked = useAuthStore((state) => state.isClicked);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setwindowWidth(window.innerWidth);
-    });
-  }, []);
 
   const loginHandler = () => {
     if (email.trim() && password.trim()) {
@@ -36,18 +29,15 @@ const SignInScreen = () => {
       <div className="bg-[#5e0098] lg:min-h-[556px] min-h-screen lg:min-w-[1016px] min-w-full flex items-center justify-center lg:flex-row sm:flex-row flex-col">
         <div className="flex sm:hidden text-white self-start p-4">Sign in</div>
         <div className="lg:min-w-[508px] lg:min-h-[556px] sm:min-w-[254px] min-w-full flex justify-center items-center grow">
-          {windowWidth > 640 ? (
-            <img
-              src={require("../assets/asset-xl/logo-xl.png")}
-              alt="brand-logo"
-              className="sm:flex hidden"
-            />
-          ) : (
-            <div className="sm:hidden flex flex-col justify-end self-end flex-1  p-5 text-white">
-              <h1 className="font-poppins-bold text-2xl">Welcome back!</h1>
-              <h1 className="text-sm">Sign in to continue</h1>
-            </div>
-          )}
+          <img
+            src={require("../assets/asset-xl/logo-xl.png")}
+            alt="brand-logo"
+            className="sm:flex hidden"
+          />
+          <div className="sm:hidden flex  flex-col justify-end self-end flex-1  p-5 text-white">
+            <h1 className="font-poppins-bold text-2xl">Welcome back!</h1>
+            <h1 className="text-sm">Sign in to continue</h1>
+          </div>
         </div>
         <div className="bg-white min-h-[656px] lg:min-h-[556px]   lg:min-w-[508px] sm:min-w-[254px] min-w-full grow">
           <form
