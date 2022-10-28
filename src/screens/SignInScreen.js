@@ -40,9 +40,10 @@ const SignInScreen = () => {
             <img
               src={require("../assets/asset-xl/logo-xl.png")}
               alt="brand-logo"
+              className="sm:flex hidden"
             />
           ) : (
-            <div className=" flex flex-col justify-end self-end flex-1  p-5 text-white">
+            <div className="sm:hidden flex flex-col justify-end self-end flex-1  p-5 text-white">
               <h1 className="font-poppins-bold text-2xl">Welcome back!</h1>
               <h1 className="text-sm">Sign in to continue</h1>
             </div>

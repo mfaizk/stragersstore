@@ -1,6 +1,12 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import { getDatabase, set as setdb, ref } from "firebase/database";
+import { app } from "../configs/firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 
+const database = getDatabase(app);
+const auth = getAuth(app);
 const userdetailStore = (set) => ({
   udetail: {},
   setUserDetail: (d) => {
@@ -8,8 +14,45 @@ const userdetailStore = (set) => ({
       udetail: d,
     }));
   },
+  setDetailInDb: ({
+    fName,
+    lName,
+    phNumber,
+    gender,
+    location,
+    code,
+    navigate,
+  }) => {
+    setdb(ref(database, "users/" + auth.currentUser.uid), {
+      fName,
+      lName,
+      phNumber,
+      gender,
+      location,
+      code,
+    })
+      .then(() => {
+        toast.success("Info Saved");
+        set((state) => ({
+          udetail: {
+            fName,
+            lName,
+            phNumber,
+            gender,
+            location,
+            code,
+          },
+        }));
+        navigate("/home");
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  },
 });
 
-const useAuthStore = create(devtools(userdetailStore, { name: "udetail" }));
+const useUserdetailStore = create(
+  devtools(userdetailStore, { name: "udetail" })
+);
 
-export default useAuthStore;
+export default useUserdetailStore;

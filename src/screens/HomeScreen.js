@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import useAuthStore from "../stores/authStore";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { app } from "../configs/firebaseConfig";
-import { getAuth } from "firebase/auth";
 function HomeScreen() {
   const db = getDatabase(app);
   const navigate = useNavigate();

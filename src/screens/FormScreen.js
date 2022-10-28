@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { app } from "../configs/firebaseConfig";
-import { getDatabase, set, ref } from "firebase/database";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import useAuthStore from "../stores/authStore";
 import { useLocation } from "react-router-dom";
+import useUserdetailStore from "../stores/userDetailStore";
 // import { FaFacebook } from "react-icons/fa";
-const database = getDatabase(app);
+
 const FormScreen = () => {
   const [fName, setFname] = useState("");
   const [lName, setlName] = useState("");
@@ -15,42 +14,40 @@ const FormScreen = () => {
   const [location, setLoaction] = useState("");
   const [isChecked, setisChecked] = useState(true);
   const [code, setCode] = useState("");
-
   const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
   const paramLocation = useLocation();
-
+  const formdataHandler = useUserdetailStore((state) => state.setDetailInDb);
   useEffect(() => {
     let msg = paramLocation?.state?.msg;
     if (msg !== "") {
       toast.warn(msg);
     }
     console.log(msg);
-  }, []);
+  }, [paramLocation?.state?.msg]);
 
   const formHandler = () => {
-    if (fName && lName && phNumber && gender && location) {
-      if (!Number(phNumber)) {
-        toast.error("Please Enter number in phone number");
-      } else {
-        set(ref(database, "users/" + user.uid), {
-          fName,
-          lName,
-          phNumber,
-          gender,
-          location,
-          code,
-        })
-          .then(() => {
-            toast.success("Info Saved");
-            navigate("/home");
-          })
-          .catch((e) => {
-            toast.error(e.message);
+    if (user) {
+      if (fName && lName && phNumber && gender && location) {
+        if (!Number(phNumber)) {
+          toast.error("Please Enter number in phone number");
+        } else {
+          formdataHandler({
+            fName,
+            lName,
+            phNumber,
+            gender,
+            location,
+            code,
+            navigate,
           });
+        }
+      } else {
+        toast.error("Fill form properly");
       }
     } else {
-      toast.error("Fill form properly");
+      toast.error("404 unauthorize access ");
+      navigate("/welcome", { replace: true });
     }
   };
 
