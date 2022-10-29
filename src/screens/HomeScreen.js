@@ -8,6 +8,7 @@ import Body from "./Components/HomeScreenComponents/Body";
 import Footer from "./Components/HomeScreenComponents/Footer";
 import Header from "./Components/HomeScreenComponents/Header";
 import useUserdetailStore from "../stores/userDetailStore";
+import SideBar from "./Components/HomeScreenComponents/SideBar";
 const HomeScreen = () => {
   const db = getDatabase(app);
   const navigate = useNavigate();
@@ -38,18 +39,21 @@ const HomeScreen = () => {
   }, [db, navigate, udetailHandler, user.uid]);
 
   return (
-    <div
-    // onClick={() => {
-    //   signOut();
-    // }}
+    <
+      // onClick={() => {
+      //   signOut();
+      // }}
     >
       {/* {"Welcome " + user?.email}
       <ToastContainer /> */}
       <Header />
-      <Body />
 
+      <div className="flex flex-row">
+        {/* <SideBar /> */}
+        <Body />
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
