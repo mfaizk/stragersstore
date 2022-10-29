@@ -33,18 +33,17 @@ const userdetailStore = (set) => ({
     })
       .then(() => {
         toast.success("Info Saved");
-        let d= {
-          fName,
-          lName,
-          phNumber,
-          gender,
-          location,
-          code,
-        }
         set((state) => ({
-          udetail: d,
+          udetail: {
+            fName,
+            lName,
+            phNumber,
+            gender,
+            location,
+            code,
+          },
         }));
-    
+
         navigate("/home");
       })
       .catch((e) => {
