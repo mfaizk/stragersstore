@@ -14,6 +14,7 @@ const HomeScreen = () => {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const udetailHandler = useUserdetailStore((state) => state.setUserDetail);
+
   useEffect(() => {
     const dataRef = ref(db, "users/" + user.uid);
     onValue(dataRef, (snapshot) => {
