@@ -39,19 +39,11 @@ const HomeScreen = () => {
   }, [db, navigate, udetailHandler, user.uid]);
 
   return (
-    <
-      // onClick={() => {
-      //   signOut();
-      // }}
-    >
-      {/* {"Welcome " + user?.email}
-      <ToastContainer /> */}
+    <>
       <Header />
-
-      <div className="flex flex-row">
-        {/* <SideBar /> */}
-        <Body />
-      </div>
+      <Body>
+        <SideBar />
+      </Body>
       <Footer />
     </>
   );

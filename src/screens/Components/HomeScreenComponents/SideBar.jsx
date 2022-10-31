@@ -15,17 +15,19 @@ const SideBar = () => {
   const out = useAuthStore((state) => state.signOutHandler);
   const userD = useUserdetailStore((state) => state.udetail);
   const setUserD = useUserdetailStore((state) => state.setUserDetail);
-
+  const drawerStatus = useUserdetailStore((state) => state.isVisible);
   const signOut = () => {
     out();
     setUserD({});
   };
 
   return (
-    <div>
-      <div className="absolute  lg:w-96 z-10 flex flex-col border h-screen bg-white">
-        <div className="flex flex-col justify-center items-center mt-8 mb-6">
-          <button className="w-44 border rounded-full">
+    <>
+      <div
+        className={`fixed mt-16 min-w-[60%] sm:min-w-[30%] grow  z-10 flex flex-col border   bg-white bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full  `}
+      >
+        <div className="flex flex-col justify-center sm:items-center items-start mt-8 mb-6">
+          <button className="hidden sm:flex w-44 border rounded-full">
             <img src={craft} alt="" />
           </button>
           <h3 className="flex text-3xl font-semibold">
@@ -38,45 +40,37 @@ const SideBar = () => {
         </div>
 
         {/* Profile options */}
-        <div className="">
-          <div className="flex flex-col  mt-1 p-2">
-            <div className="flex mt-4 w-full border p-2 bg-violet-200 rounded">
-              <FaHome className="mt-2" />
-              <button className="ml-8 mt-1 w-auto font-semibold">Home</button>
-            </div>
-            <div className="flex mt-2 p-2 hover:bg-violet-200 rounded">
-              <FaBookOpen className="mt-4" />
-              <button className="ml-8 mt-2 w-auto font-semibold">
-                Syllabus
-              </button>
-            </div>
-            <div className="flex mt-2 p-2 hover:bg-violet-200 rounded">
-              <MdSpeed className="mt-4" />
-              <button className="mt-2 ml-8 w-auto font-semibold">Test</button>
-            </div>
-            <div className="flex mt-2 p-2 hover:bg-violet-200 rounded">
-              <MdOutlineSubscriptions className="mt-4" />
-              <button className="mt-2 ml-8 w-auto font-semibold">
-                Subscribe
-              </button>
-            </div>
+        <div className="flex flex-col  mt-1 p-2   items-start justify-start  gap-2 min-h-[400px]">
+          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+            <FaHome className="" />
+            <button className=" w-auto font-semibold">Home</button>
           </div>
-          <div className=" flex  items-end p-2 h-auto lg:h-full">
-            <div className=" border flex p-2 font-semibold font-sans w-full rounded ">
-              <MdOutlineLogout className="ml-2" size={20} />
-              <button
-                className="ml-4 "
-                onClick={() => {
-                  signOut();
-                }}
-              >
-                Logout
-              </button>
-            </div>
+          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+            <FaBookOpen className="" />
+            <button className=" w-auto font-semibold">Syllabus</button>
+          </div>
+          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+            <MdSpeed className="" />
+            <button className=" w-auto font-semibold">Test</button>
+          </div>
+          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+            <MdOutlineSubscriptions className="" />
+            <button className=" w-auto font-semibold">Subscribe</button>
+          </div>
+          <div className=" flex  p-2 hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto">
+            <MdOutlineLogout className="" size={20} />
+            <button
+              className=" w-auto font-semibold"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
