@@ -10,11 +10,6 @@ const Body = ({ children }) => {
 
   return (
     <>
-      {/* profile with emal section */}
-      {/* Left side  */}
-      {/* left ends here  */}
-      {children}
-      {/* Right Starts */}
       <div className="w-auto p-0 sm:p-6 bg-violet-50 mt-10">
         <div className=" flex bg-violet-800 text-white flex-grow flex-wrap w-auto ">
           <div className=" p-2 sm:p-8">
