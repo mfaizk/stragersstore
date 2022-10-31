@@ -41,9 +41,10 @@ const HomeScreen = () => {
   return (
     <>
       <Header />
-      <Body>
-        <SideBar />
-      </Body>
+      <SideBar />
+
+      <Body />
+      <Footer />
     </>
   );
 };
