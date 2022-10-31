@@ -2,11 +2,11 @@ import { devtools } from "zustand/middleware";
 import create from "zustand";
 
 const dataStore = (set) => ({
-  productList: null,
+  productList: undefined,
   isLoading: false,
 
   setProductList: (data) => {
-    console.log(typeof data);
+    // console.log(typeof data);
     set((state) => ({
       isLoading: true,
     }));

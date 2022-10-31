@@ -2,29 +2,17 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import girl from "../../../assets/girl.png";
 import ResumeCourse from "./ResumeCourse";
 import useUserdetailStore from "../../../stores/userDetailStore";
-import { useEffect } from "react";
 import useDataStore from "../../../stores/dataStore";
-import TemporaryDataGenerator from "../../../models/TemporaryDataGenerator";
 import LoadingScreen from "../../LoadingScreen";
 
 const Body = ({ children }) => {
   const userD = useUserdetailStore((state) => state.udetail);
-  const setProductData = useDataStore((state) => state.setProductList);
   const productData = useDataStore((state) => state.productList);
   const isLoading = useDataStore((state) => state.isLoading);
-  useEffect(() => {
-    let data = TemporaryDataGenerator();
-    // setProductData(data);
-    console.log(typeof data);
-    // console.log(TemporaryDataGenerator());
-    // console.log("runnedsdad");
-    console.log(data);
-  }, [setProductData]);
-  // const [SideBar, Footer] = children;
-
+  // console.log(productData);
   return (
     <>
-      {isLoading ? (
+      {isLoading && productData ? (
         <LoadingScreen />
       ) : (
         <div className="w-auto p-0 sm:p-6 bg-violet-50 mt-10">
@@ -37,7 +25,7 @@ const Body = ({ children }) => {
               <div className="mt-12 font-sans font-semibold text-base sm:text-2xl lg:text-4xl ">
                 Welcome {userD.fName ? userD.fName + " " + userD.lName : " "}
                 <p className="text-xs lg:text-sm font-sans font-normal  mt-2 w-44 sm:w-auto ">
-                  Choose a goal and start learning top educators
+                  Choose a goal and start buy some awesome clothing
                 </p>
               </div>
             </div>
@@ -61,18 +49,44 @@ const Body = ({ children }) => {
 
           {/* <ResumeCourse /> */}
           <div className="bg-white rounded p-4 mt-8">
-            <h5 className="font-semibold text-xl mt-8">Resume Your Courses</h5>
+            <h5 className="font-semibold text-xl mt-8">Buy New Product</h5>
             <div className=" mt-2">
               <div className="flex flex-wrap justify-center sm:justify-start items-center gap-10 ">
-                <div className="">
+                {/* <div className="">
+                  <ResumeCourse
+                    name={productData ? productData[0]?.productName : " "}
+                    // name="jj"
+                    chapter="2"
+                  />
+                </div> */}
+
+                {productData ? (
+                  productData.map((e, i) => {
+                    // console.log(`${i}-${e?.productUid}`);
+                    // console.log(i);
+                    // console.log(e);
+                    return (
+                      <>
+                        <ResumeCourse
+                          name={e ? e?.productName : " "}
+                          // name="jj"
+                          chapter="2"
+                          img={e ? `${e?.productImageUrl[0]} ` : ""}
+                        />
+                      </>
+                    );
+                  })
+                ) : (
+                  <>
+                    <LoadingScreen />
+                  </>
+                )}
+                {/* <div className="">
                   <ResumeCourse name="Jatin" chapter="2" />
                 </div>
                 <div className="">
                   <ResumeCourse name="Jatin" chapter="2" />
-                </div>
-                <div className="">
-                  <ResumeCourse name="Jatin" chapter="2" />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
