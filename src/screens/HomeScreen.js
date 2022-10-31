@@ -44,7 +44,6 @@ const HomeScreen = () => {
       <Body>
         <SideBar />
       </Body>
-      <Footer />
     </>
   );
 };

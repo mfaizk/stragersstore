@@ -5,7 +5,7 @@ const Header = () => {
   const drawerHandler = useUserdetailStore((state) => state.visibleSwitch);
   const drawerStatus = useUserdetailStore((state) => state.isVisible);
   return (
-    <nav className="fixed min-w-[100vw] z-50 top-0 flex items-center p-3 flex-wrap bg-violet-700 sm:bg-white text-white sm:text-black">
+    <nav className=" fixed min-w-[100vw] z-50 top-0 flex items-center p-3 flex-wrap bg-violet-700 sm:bg-white text-white sm:text-black">
       <div className="flex flex-wrap flex-row">
         <button
           className="w-8 mt-2 sm:mt-0"

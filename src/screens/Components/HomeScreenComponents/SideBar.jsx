@@ -24,9 +24,9 @@ const SideBar = () => {
   return (
     <>
       <div
-        className={`fixed mt-16 min-w-[60%] sm:min-w-[30%] grow  z-10 flex flex-col border   bg-white bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full  `}
+        className={` fixed top-0 mt-16 min-w-[60%] sm:min-w-[30%] grow  z-10 flex flex-col border   bg-white bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full  `}
       >
-        <div className="flex flex-col justify-center sm:items-center items-start mt-8 mb-6">
+        <div className=" flex flex-col justify-center sm:items-center items-start mt-8 mb-6">
           <button className="hidden sm:flex w-44 border rounded-full">
             <img src={craft} alt="" />
           </button>

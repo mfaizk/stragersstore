@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const database = getDatabase(app);
 const auth = getAuth(app);
 const userdetailStore = (set) => ({
-  isVisible: "translate-y-full",
+  isVisible: "translate-x-[-100%]",
   visibleSwitch: (currentState) => {
     if (currentState === "translate-x-[-100%]") {
       set((state) => ({
