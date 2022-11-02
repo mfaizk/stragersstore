@@ -1,4 +1,4 @@
-import welcomeLogo from "../../../assets/welcomeLogo.png";
+// import welcomeLogo from "../../../assets/welcomeLogo.png";
 import { MdPlayCircleFilled } from "react-icons/md";
 import { LoadingImage } from "../../LoadingImage";
 let ResumeCourse = ({ name, chapter, img }) => {

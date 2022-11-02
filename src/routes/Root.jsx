@@ -1,78 +1,41 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import ErrorScreen from "../screens/ErrorScreen";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import WelomeScreen from "../screens/WelomeScreen";
 import SignInScreen from "../screens/SignInScreen";
-import WelcomeScreen from "../screens/WelomeScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import HomeScreen from "../screens/HomeScreen";
-import LoadingScreen from "../screens/LoadingScreen";
+import CartScreen from "../screens/CartScreen";
+import AuthHandler from "../middleware/AuthHandler";
+import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
 import useAuthStore from "../stores/authStore";
-import { useEffect, useState } from "react";
 import { app } from "../configs/firebaseConfig";
 import { getAuth } from "firebase/auth";
-import FormScreen from "../screens/FormScreen";
-import { ToastContainer } from "react-toastify";
 const Root = () => {
-  const [initUser, setInitUser] = useState("");
-  const user = useAuthStore((state) => state.user);
+  const auth = getAuth(app);
   const setUser = useAuthStore((state) => state.setUser);
   useEffect(() => {
-    getAuth(app).onAuthStateChanged((u) => {
+    auth.onAuthStateChanged((u) => {
       setUser(u);
-      setInitUser(u);
+      // console.log(u);
     });
-    console.log("Runned");
-  }, [setUser]);
+  }, [auth, setUser]);
 
-  return initUser === "" ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <BrowserRouter basename="/">
       <ToastContainer />
       <Routes>
-        <Route
-          path="/"
-          element={
-            initUser ? (
-              <Navigate to={"/home"} replace={true} />
-            ) : (
-              <WelcomeScreen />
-            )
-          }
-          errorElement={<ErrorScreen />}
-        />
-        <Route
-          path={"/home"}
-          element={user ? <HomeScreen /> : <Navigate to={"/"} replace={true} />}
-          errorElement={<ErrorScreen />}
-        />
-        <Route
-          path={"/userdetail"}
-          element={user ? <FormScreen /> : <Navigate to={"/"} replace={true} />}
-          errorElement={<ErrorScreen />}
-        />
+        {/* Public route started */}
+        <Route path="/" element={<WelomeScreen />} />
+        <Route path="/signin" element={<SignInScreen />} />
+        <Route path="/signup" element={<SignUpScreen />} />
+        {/* Public route end */}
 
-        <Route
-          path="/welcome"
-          element={
-            user ? <Navigate to={"/"} replace={true} /> : <WelcomeScreen />
-          }
-          errorElement={<ErrorScreen />}
-        />
-        <Route
-          path="/signin"
-          element={
-            user ? <Navigate to={"/"} replace={true} /> : <SignInScreen />
-          }
-          errorElement={<ErrorScreen />}
-        />
-        <Route
-          path="/signup"
-          element={
-            user ? <Navigate to={"/"} replace={true} /> : <SignUpScreen />
-          }
-          errorElement={<ErrorScreen />}
-        />
-        <Route path="*" element={<ErrorScreen />} />
+        {/* Private route start */}
+        <Route element={<AuthHandler />}>
+          <Route path="/home" element={<HomeScreen />} />
+          <Route path="cart" element={<CartScreen />} />
+        </Route>
+        {/* Private route end */}
       </Routes>
     </BrowserRouter>
   );

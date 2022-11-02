@@ -10,6 +10,7 @@ const auth = getAuth(app);
 const userdetailStore = (set) => ({
   isVisible: "translate-x-[-100%]",
   visibleSwitch: (currentState) => {
+    console.log(currentState);
     if (currentState === "translate-x-[-100%]") {
       set((state) => ({
         isVisible: "translate-x-[0%]",

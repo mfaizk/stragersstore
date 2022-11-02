@@ -9,6 +9,7 @@ import { FaHome, FaBookOpen } from "react-icons/fa";
 
 import useAuthStore from "../../../stores/authStore";
 import useUserdetailStore from "../../../stores/userDetailStore";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
   const auth = useAuthStore((state) => state.user);
@@ -16,8 +17,10 @@ const SideBar = () => {
   const userD = useUserdetailStore((state) => state.udetail);
   const setUserD = useUserdetailStore((state) => state.setUserDetail);
   const drawerStatus = useUserdetailStore((state) => state.isVisible);
+  const navigate = useNavigate();
+  const visibleSwitcher = useUserdetailStore((state) => state.visibleSwitch);
   const signOut = () => {
-    out();
+    out(navigate);
     setUserD({});
   };
 
@@ -41,13 +44,30 @@ const SideBar = () => {
 
         {/* Profile options */}
         <div className="flex flex-col  mt-1 p-2   items-start justify-start  gap-2 min-h-[400px]">
-          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+          <div
+            className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3"
+            onClick={() => {
+              visibleSwitcher();
+              navigate(`/home`, { replace: true });
+
+              // redirect("/home");
+            }}
+          >
             <FaHome className="" />
             <button className=" w-auto font-semibold">Home</button>
           </div>
-          <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
+          <div
+            className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3"
+            onClick={() => {
+              visibleSwitcher();
+
+              navigate(`/cart`, { replace: true });
+
+              // redirect("/home");
+            }}
+          >
             <FaBookOpen className="" />
-            <button className=" w-auto font-semibold">Syllabus</button>
+            <button className=" w-auto font-semibold">Cart</button>
           </div>
           <div className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3">
             <MdSpeed className="" />
@@ -57,16 +77,14 @@ const SideBar = () => {
             <MdOutlineSubscriptions className="" />
             <button className=" w-auto font-semibold">Subscribe</button>
           </div>
-          <div className=" flex  p-2 hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto">
+          <div
+            className=" flex  p-2 hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto"
+            onClick={() => {
+              signOut();
+            }}
+          >
             <MdOutlineLogout className="" size={20} />
-            <button
-              className=" w-auto font-semibold"
-              onClick={() => {
-                signOut();
-              }}
-            >
-              Logout
-            </button>
+            <button className=" w-auto font-semibold">Logout</button>
           </div>
         </div>
       </div>

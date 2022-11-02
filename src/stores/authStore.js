@@ -12,19 +12,19 @@ import { app } from "../configs/firebaseConfig";
 const auth = getAuth(app);
 
 const authStore = (set) => ({
-  user: getAuth(app)?.currentUser,
+  user: {},
   isClicked: false,
   setUser: async (u) => {
     set((state) => ({
       user: u,
     }));
+    // console.log(u);
   },
-  signupHandler: (email, password) => {
+  signupHandler: (email, password, nav) => {
     const toastId = "signupUpdate";
     set((state) => ({
       isClicked: true,
     }));
-    let e = "OOps error occureed";
     createUserWithEmailAndPassword(auth, email, password)
       .then((u) => {
         set((state) => ({
@@ -32,6 +32,7 @@ const authStore = (set) => ({
           isClicked: false,
         }));
         toastHandler("UAC created", toastId, "success");
+        nav("/home");
       })
       .catch((err) => {
         toastHandler(err.message, toastId, "error");
@@ -40,15 +41,17 @@ const authStore = (set) => ({
         }));
       });
   },
-  signOutHandler: () => {
+  signOutHandler: (navigate) => {
     signOut(auth).then(() => {
       set((state) => ({
         user: null,
       }));
+
+      navigate("/");
       // return <Navigate to={"/welcome"} replace={true} />;
     });
   },
-  signinHandler: (email, password) => {
+  signinHandler: (email, password, nav) => {
     const toastId = "signinUpdate";
     // toast.loading("logging in", { toastId: toastId });
     // toastHandler("logging in", toastId, "info");
@@ -63,6 +66,9 @@ const authStore = (set) => ({
         }));
         // toast.success("Logging in sucessfully", { toastId: toastId });
         toastHandler("Logging in sucessfully", toastId, "success");
+        // console.log(this.user);
+
+        nav("/home");
       })
       .catch((err) => {
         // toast.error(e, { toastId: toastId });

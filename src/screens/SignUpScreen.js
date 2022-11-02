@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 import { toast } from "react-toastify";
-import Lottie from "react-lottie";
-import * as clickedAnimationData from "../assets/clicked.json";
+// import Lottie from "react-lottie";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../stores/authStore";
 const SignUpScreen = () => {
@@ -12,7 +11,7 @@ const SignUpScreen = () => {
   const [cnfPassword, setCnfPassword] = useState("");
   const [isChecked, setisChecked] = useState(false);
   const formRef = React.useRef();
-
+  const nav = useNavigate();
   const signupHandler = useAuthStore((state) => state.signupHandler);
   const isClicked = useAuthStore((state) => state.isClicked);
 
@@ -23,7 +22,7 @@ const SignUpScreen = () => {
         // createUserWithEmailAndPassword(auth, email, password).then(() => {
         //   toast("userCreated", { bodyStyle: { backgroundColor: "red" } });
         // });
-        signupHandler(email, password);
+        signupHandler(email, password, nav);
         formRef.current.reset();
         setisChecked(false);
       } else {
@@ -119,24 +118,26 @@ const SignUpScreen = () => {
                 Privacy Policy
               </span>
             </label>
-            {isClicked ? (
-              <div className="sm:w-1/2 lg:min-w-[500px] min-w-full">
-                <Lottie
-                  options={{ animationData: clickedAnimationData, loop: true }}
-                  height={150}
-                />
-              </div>
-            ) : (
-              <button
-                className={`${
-                  isChecked ? "bg-[#5e0098]" : "bg-[#9a3dd4]"
-                } text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
-                about="Signup"
-                disabled={!isChecked}
-              >
-                Sign up
-              </button>
-            )}
+
+            <button
+              className={`${
+                isChecked ? "bg-[#5e0098]" : "bg-[#9a3dd4]"
+              } text-[#ffffff] h-12 border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
+              about="Signup"
+              disabled={!isChecked}
+            >
+              {isClicked ? (
+                <>
+                  <img
+                    src={require("../assets/clicked.gif")}
+                    alt=""
+                    className="h-24"
+                  />
+                </>
+              ) : (
+                <>Sign up</>
+              )}
+            </button>
 
             {isClicked ? (
               <></>

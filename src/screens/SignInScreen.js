@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SiGoogle, SiFacebook } from "react-icons/si";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "../stores/authStore";
-import * as clickedAnimationData from "../assets/clicked.json";
-import Lottie from "react-lottie";
 
 const SignInScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const formRef = React.useRef();
-
+  const nav = useNavigate();
   const signinHandler = useAuthStore((state) => state.signinHandler);
   const isClicked = useAuthStore((state) => state.isClicked);
-
   const loginHandler = () => {
     if (email.trim() && password.trim()) {
-      signinHandler(email, password);
+      signinHandler(email, password, nav);
       formRef.current.reset();
     } else {
       toast.error('"Fill information"');
@@ -67,25 +64,26 @@ const SignInScreen = () => {
                 setPassword(v.currentTarget.value);
               }}
             />
-            {isClicked ? (
-              <>
-                <Lottie
-                  options={{ animationData: clickedAnimationData, loop: true }}
-                  height={150}
-                  width={200}
-                />
-              </>
-            ) : (
-              <button
-                className={`${"bg-[#5e0098]"} text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
-                about="Signup"
-              >
-                Sign In
-              </button>
-            )}
+
+            <button
+              className={`${"bg-[#5e0098]"} h-12 text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
+              about="Signup"
+            >
+              {isClicked ? (
+                <>
+                  <img
+                    src={require("../assets/clicked.gif")}
+                    alt=""
+                    className="h-24"
+                  />
+                </>
+              ) : (
+                <>Sign in</>
+              )}
+            </button>
 
             {isClicked ? (
-              <></>
+              ""
             ) : (
               <>
                 <div className="flex items-center justify-center min-w-full gap-2">

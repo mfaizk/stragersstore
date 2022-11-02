@@ -1,15 +1,32 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import TemporaryDataGenerator from "../models/TemporaryDataGenerator";
-
+import { Link, useNavigate } from "react-router-dom";
+import useUserdetailStore from "../stores/userDetailStore";
+import { app } from "../configs/firebaseConfig";
+import { getAuth } from "firebase/auth";
+import LoadingScreen from "./LoadingScreen";
 const WelcomeScreen = () => {
+  const auth = getAuth(app);
   const [currentWidth, setcurrentWidth] = useState(0);
+  const visibleHandler = useUserdetailStore((state) => state.visibleSwitch);
+  const navigate = useNavigate();
+  const [currentUser, setcurrentUser] = useState("");
   useEffect(() => {
-    TemporaryDataGenerator();
+    // TemporaryDataGenerator();
     window.addEventListener("resize", () => {
       setcurrentWidth(window.innerWidth);
     });
-  }, []);
+    visibleHandler("translate-x-[-100%]");
+    auth.onAuthStateChanged((u) => {
+      if (u) {
+        navigate("/home");
+      }
+      setcurrentUser(u);
+    });
+  }, [visibleHandler, auth, navigate]);
+
+  if (currentUser === "") {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="min-h-screen bg-[#410068] flex items-center justify-center">
