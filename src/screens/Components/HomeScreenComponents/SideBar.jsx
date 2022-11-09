@@ -85,6 +85,7 @@ const SideBar = () => {
           <div
             className=" flex  p-2 hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto"
             onClick={() => {
+              visibleSwitcher(drawerStatus);
               signOut();
             }}
           >

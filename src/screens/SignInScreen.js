@@ -68,6 +68,7 @@ const SignInScreen = () => {
             <button
               className={`${"bg-[#5e0098]"} h-12 text-[#ffffff] border-white border-2 sm:w-1/2 lg:min-w-[500px] min-w-full w-[90%] p-3 flex items-center justify-center self-center`}
               about="Signup"
+              disabled={isClicked}
             >
               {isClicked ? (
                 <>
