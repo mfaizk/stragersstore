@@ -9,6 +9,9 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cnfPassword, setCnfPassword] = useState("");
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [gender, setGender] = useState("male");
   const [isChecked, setisChecked] = useState(false);
   const formRef = React.useRef();
   const nav = useNavigate();
@@ -16,13 +19,19 @@ const SignUpScreen = () => {
   const isClicked = useAuthStore((state) => state.isClicked);
 
   const loginHandler = () => {
-    if (email.trim() && password.trim() && cnfPassword.trim()) {
+    if (
+      email.trim() &&
+      password.trim() &&
+      cnfPassword.trim() &&
+      fName.trim() &&
+      lName.trim()
+    ) {
       if (password.trim() === cnfPassword.trim()) {
         // toast("loogged in", { bodyStyle: { backgroundColor: "red" } });
         // createUserWithEmailAndPassword(auth, email, password).then(() => {
         //   toast("userCreated", { bodyStyle: { backgroundColor: "red" } });
         // });
-        signupHandler(email, password, nav);
+        signupHandler(email, password, lName, fName, gender, nav);
         formRef.current.reset();
         setisChecked(false);
       } else {
@@ -30,7 +39,7 @@ const SignUpScreen = () => {
         // console.log(formRef.current);
       }
     } else {
-      toastHandler('"Fill information"');
+      toastHandler("Fill information");
     }
   };
 
@@ -73,6 +82,25 @@ const SignUpScreen = () => {
             ref={formRef}
           >
             <h1 className="text-2xl font-semibold">Sign up to continue</h1>
+
+            <input
+              type="text"
+              id="fName"
+              className="border-[#D1D5DB] border-2 min-w-full h-[38px] rounded-md p-2"
+              placeholder="First Name"
+              onChange={(v) => {
+                setFName(v.currentTarget.value);
+              }}
+            />
+            <input
+              type="text"
+              id="lName"
+              className="border-[#D1D5DB] border-2 min-w-full h-[38px] rounded-md p-2"
+              placeholder="Last Name"
+              onChange={(v) => {
+                setLName(v.currentTarget.value);
+              }}
+            />
             <input
               type="text"
               id="email"
@@ -100,6 +128,26 @@ const SignUpScreen = () => {
                 setCnfPassword(v.currentTarget.value);
               }}
             />
+
+            <label
+              id="gender"
+              className="flex justify-between items-center shadow-sm min-w-full h-[38px] rounded-md p-2"
+            >
+              Gender
+              <select
+                name="gender"
+                id="gender"
+                className="bg-[#5e00982d] shadow-sm p-2 px-4"
+                onChange={(e) => {
+                  setGender(e.target.value);
+                  console.log(e.target.value);
+                }}
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
             <label id="privacy">
               {" "}
               <input

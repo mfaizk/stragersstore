@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import { set as setF, ref, getDatabase } from "firebase/database";
 import { app } from "../configs/firebaseConfig";
 
 const auth = getAuth(app);
@@ -20,7 +21,8 @@ const authStore = (set) => ({
     }));
     // console.log(u);
   },
-  signupHandler: (email, password, nav) => {
+  signupHandler: (email, password, fName, lName, gender, nav) => {
+    const db = getDatabase();
     const toastId = "signupUpdate";
     set((state) => ({
       isClicked: true,
@@ -31,6 +33,15 @@ const authStore = (set) => ({
           user: u.user,
           isClicked: false,
         }));
+        setF(ref(db, "users/" + u.user?.uid), {
+          fName,
+          lName,
+          gender,
+          email,
+        }).then(() => {
+          toastHandler("UAC Data created", toastId, "success");
+        });
+
         toastHandler("UAC created", toastId, "success");
         nav("/home");
       })
