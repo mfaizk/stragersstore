@@ -17,10 +17,11 @@ const Body = ({ children }) => {
   const db = getDatabase();
   useEffect(() => {
     const userDRef = ref(db, "users/" + currentAuthUser?.uid);
-    onValue(userDRef, (snapshot) => {
-      const value = snapshot.val();
-      const { email, fName, lName, gender } = value;
-      setUserdetail(email, fName, lName, gender);
+    onValue(userDRef, async (snapshot) => {
+      if (snapshot.val() !== null) {
+        const { email, fName, lName, gender } = snapshot.val();
+        setUserdetail(email, fName, lName, gender);
+      }
     });
   }, [currentAuthUser?.uid, db, setUserdetail]);
 

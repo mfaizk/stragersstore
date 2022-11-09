@@ -18,7 +18,7 @@ let ResumeCourse = ({ name, chapter, img }) => {
               <p className="mb-3 font-normal text-gray-700 ">
                 chapter-{chapter}
               </p>
-              <button class="ml-auto w-auto  text-sm font-medium text-center rounded-full">
+              <button className="ml-auto w-auto  text-sm font-medium text-center rounded-full">
                 <MdPlayCircleFilled
                   className=" text-white bg-violet-900 rounded-full"
                   size={30}

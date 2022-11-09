@@ -7,8 +7,8 @@ export const LoadingImage = () => {
       className={`bg-white min-h-[180px] min-w-full flex items-center justify-center`}
     >
       <svg
-        aria-hidden="true"
-        class="mr-2 w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-[#5b21b6]"
+        // aria-hidden="true"
+        className="mr-2 w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-[#5b21b6]"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ export const LoadingImage = () => {
           fill="currentFill"
         />
       </svg>
-      <span class="sr-only">Loading...</span>
+      <span className="sr-only">Loading...</span>
     </div>
   );
 };

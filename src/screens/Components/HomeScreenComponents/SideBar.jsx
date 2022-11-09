@@ -48,7 +48,7 @@ const SideBar = () => {
         </div>
 
         {/* Profile options */}
-        <div className="flex flex-col  mt-1 p-2   items-start justify-start  gap-2 min-h-[400px]">
+        <div className="flex flex-col  mt-1 p-2   items-start justify-start  gap-2 ">
           <div
             className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3"
             onClick={() => {
@@ -82,8 +82,11 @@ const SideBar = () => {
             <MdOutlineSubscriptions className="" />
             <button className=" w-auto font-semibold">Subscribe</button>
           </div>
+        </div>
+        {/* Logout button div Start */}
+        <div className="flex flex-col   p-2   items-start justify-start  gap-2 mt-10">
           <div
-            className=" flex  p-2 hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto"
+            className=" flex  p-2  bg-[#6c28d928] hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto "
             onClick={() => {
               visibleSwitcher(drawerStatus);
               signOut();
@@ -93,6 +96,7 @@ const SideBar = () => {
             <button className=" w-auto font-semibold">Logout</button>
           </div>
         </div>
+        {/* Logout button div End */}
       </div>
     </>
   );

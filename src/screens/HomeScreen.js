@@ -7,8 +7,6 @@ const HomeScreen = () => {
 
   return (
     <>
-      {/* <Header /> */}
-      {/* <SideBar /> */}
       <Body />
     </>
   );
