@@ -11,6 +11,7 @@ import useAuthStore from "../../../stores/authStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useSideBarStateStore from "../../../stores/sideBarStateStore";
+import useDataStore from "../../../stores/dataStore";
 
 const SideBar = () => {
   const auth = useAuthStore((state) => state.user);
@@ -18,6 +19,7 @@ const SideBar = () => {
   const drawerStatus = useSideBarStateStore((state) => state.isVisible);
   const navigate = useNavigate();
   const visibleSwitcher = useSideBarStateStore((state) => state.visibleSwitch);
+  const userDetail = useDataStore((state) => state.userDetail);
   const signOut = () => {
     out(navigate);
   };
@@ -36,8 +38,8 @@ const SideBar = () => {
             <img src={craft} alt="" />
           </button>
           <h3 className="flex text-3xl font-semibold">
-            {/* {userD.fName ? userD.fName + " " + userD.lName : " "} */}
-            Welcome dummy
+            {userDetail.fName ? userDetail.fName + " " + userDetail.lName : " "}
+            {/* Welcome dummy */}
             <button className="ml-4 mt-4">
               <HiPencil size={18} />
             </button>

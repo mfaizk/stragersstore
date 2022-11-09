@@ -31,7 +31,7 @@ const SignUpScreen = () => {
         // createUserWithEmailAndPassword(auth, email, password).then(() => {
         //   toast("userCreated", { bodyStyle: { backgroundColor: "red" } });
         // });
-        signupHandler(email, password, lName, fName, gender, nav);
+        signupHandler(email, password, fName, lName, gender, nav);
         formRef.current.reset();
         setisChecked(false);
       } else {
