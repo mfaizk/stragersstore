@@ -13,3 +13,4 @@
 - Zustand (Global State management solution)
 
 # Demo Images
+![wwlcome](https://github.com/mfaizk/stragersstore/blob/master/demoBlobs/welcome.png)
