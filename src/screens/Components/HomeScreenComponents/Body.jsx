@@ -1,14 +1,13 @@
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import girl from "../../../assets/girl.png";
 import ResumeCourse from "./ResumeCourse";
-import useUserdetailStore from "../../../stores/userDetailStore";
 import useDataStore from "../../../stores/dataStore";
 import LoadingScreen from "../../LoadingScreen";
 
 const Body = ({ children }) => {
-  const userD = useUserdetailStore((state) => state.udetail);
   const productData = useDataStore((state) => state.productList);
   const isLoading = useDataStore((state) => state.isLoading);
+
   // console.log(productData);
   return (
     <>
@@ -23,7 +22,8 @@ const Body = ({ children }) => {
                 size={20}
               />
               <div className="mt-12 font-sans font-semibold text-base sm:text-2xl lg:text-4xl ">
-                Welcome {userD.fName ? userD.fName + " " + userD.lName : " "}
+                {/* Welcome {"dummy? userD.fName + " " + userD.lName : " "} */}
+                Welcome dummy user
                 <p className="text-xs lg:text-sm font-sans font-normal  mt-2 w-44 sm:w-auto ">
                   Choose a goal and start buy some awesome clothing
                 </p>

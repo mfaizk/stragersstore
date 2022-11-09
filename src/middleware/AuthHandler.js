@@ -12,7 +12,7 @@ const AuthHandler = () => {
   const location = useLocation();
   const setTemporaryData = useDataStore((state) => state.setProductList);
   useEffect(() => {
-    console.log("Auth Runned");
+    // console.log("Auth Runned");
     // console.log(user?.email);
     setTemporaryData(TemporaryDataGenerator());
   }, [user, setTemporaryData]);

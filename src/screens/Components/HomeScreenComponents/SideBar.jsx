@@ -8,21 +8,23 @@ import {
 import { FaHome, FaBookOpen } from "react-icons/fa";
 
 import useAuthStore from "../../../stores/authStore";
-import useUserdetailStore from "../../../stores/userDetailStore";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useSideBarStateStore from "../../../stores/sideBarStateStore";
 
 const SideBar = () => {
   const auth = useAuthStore((state) => state.user);
   const out = useAuthStore((state) => state.signOutHandler);
-  const userD = useUserdetailStore((state) => state.udetail);
-  const setUserD = useUserdetailStore((state) => state.setUserDetail);
-  const drawerStatus = useUserdetailStore((state) => state.isVisible);
+  const drawerStatus = useSideBarStateStore((state) => state.isVisible);
   const navigate = useNavigate();
-  const visibleSwitcher = useUserdetailStore((state) => state.visibleSwitch);
+  const visibleSwitcher = useSideBarStateStore((state) => state.visibleSwitch);
   const signOut = () => {
     out(navigate);
-    setUserD({});
   };
+
+  useEffect(() => {
+    // console.log(drawerStatus);
+  }, [drawerStatus]);
 
   return (
     <>
@@ -34,7 +36,8 @@ const SideBar = () => {
             <img src={craft} alt="" />
           </button>
           <h3 className="flex text-3xl font-semibold">
-            {userD.fName ? userD.fName + " " + userD.lName : " "}
+            {/* {userD.fName ? userD.fName + " " + userD.lName : " "} */}
+            Welcome dummy
             <button className="ml-4 mt-4">
               <HiPencil size={18} />
             </button>
@@ -47,7 +50,7 @@ const SideBar = () => {
           <div
             className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3"
             onClick={() => {
-              visibleSwitcher();
+              visibleSwitcher(drawerStatus);
               navigate(`/home`, { replace: true });
 
               // redirect("/home");
@@ -59,7 +62,7 @@ const SideBar = () => {
           <div
             className="flex mt-2 p-2 hover:bg-[#6d28d9] hover:text-white rounded min-w-[200px] items-center justify-start gap-3"
             onClick={() => {
-              visibleSwitcher();
+              visibleSwitcher(drawerStatus);
 
               navigate(`/cart`, { replace: true });
 

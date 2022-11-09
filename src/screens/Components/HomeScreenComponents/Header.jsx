@@ -1,9 +1,9 @@
 import { FaSistrix, FaBell, FaUserCircle, FaBars } from "react-icons/fa";
 import welcomeLogo from "../../../assets/welcomeLogo.png";
-import useUserdetailStore from "../../../stores/userDetailStore";
+import useSideBarStateStore from "../../../stores/sideBarStateStore";
 const Header = () => {
-  const drawerHandler = useUserdetailStore((state) => state.visibleSwitch);
-  const drawerStatus = useUserdetailStore((state) => state.isVisible);
+  const drawerHandler = useSideBarStateStore((state) => state.visibleSwitch);
+  const drawerStatus = useSideBarStateStore((state) => state.isVisible);
   return (
     <nav className=" fixed min-w-[100vw] z-50 top-0 flex items-center p-3 flex-wrap bg-violet-700 sm:bg-white text-white sm:text-black">
       <div className="flex flex-wrap flex-row">
