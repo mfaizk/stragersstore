@@ -31,10 +31,10 @@ const SideBar = () => {
   return (
     <>
       <div
-        className={` fixed top-0 mt-16 min-w-[60%] sm:min-w-[30%] grow  z-10 flex flex-col border   bg-white bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full  `}
+        className={` fixed top-0 min-w-[60%] sm:min-w-[15%] grow  z-10 flex flex-col border bg-white bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full  `}
       >
         <div className=" flex flex-col justify-center sm:items-center items-start mt-8 mb-6">
-          <button className="hidden sm:flex w-44 border rounded-full">
+          <button className="flex sm:w-44 w-36 border rounded-full p-7">
             <img src={craft} alt="" />
           </button>
           <h3 className="flex text-3xl font-semibold">
@@ -84,9 +84,9 @@ const SideBar = () => {
           </div>
         </div>
         {/* Logout button div Start */}
-        <div className="flex flex-col   p-2   items-start justify-start  gap-2 mt-10">
+        <div className="flex flex-col   p-2   items-start justify-start  gap-2 mt-auto">
           <div
-            className=" flex  p-2  bg-[#6c28d928] hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3  mt-auto "
+            className=" flex  p-2  bg-[#6c28d928] hover:bg-red-500 hover:text-white rounded min-w-[200px] items-center justify-start gap-3   "
             onClick={() => {
               visibleSwitcher(drawerStatus);
               signOut();
