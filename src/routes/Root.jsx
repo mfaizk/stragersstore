@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import useAuthStore from "../stores/authStore";
 import { app } from "../configs/firebaseConfig";
 import { getAuth } from "firebase/auth";
+import ProductScreen from "../screens/ProductScreen";
 const Root = () => {
   const auth = getAuth(app);
   const setUser = useAuthStore((state) => state.setUser);
@@ -34,6 +35,7 @@ const Root = () => {
         <Route element={<AuthHandler />}>
           <Route path="/home" element={<HomeScreen />} />
           <Route path="cart" element={<CartScreen />} />
+          <Route path="product" element={<ProductScreen />} />
         </Route>
         {/* Private route end */}
       </Routes>

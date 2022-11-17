@@ -92,6 +92,7 @@ const Body = ({ children }) => {
                           // name="jj"
                           chapter="2"
                           img={e ? `${e?.productImageUrl[0]} ` : ""}
+                          data={e ? e : {}}
                         />
                       </>
                     );

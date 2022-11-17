@@ -1,11 +1,19 @@
 // import welcomeLogo from "../../../assets/welcomeLogo.png";
 import { MdPlayCircleFilled } from "react-icons/md";
+import { useNavigate } from "react-router";
 import { LoadingImage } from "../../LoadingImage";
-let ResumeCourse = ({ name, chapter, img }) => {
+let ResumeCourse = ({ name, chapter, img, data }) => {
   // console.log(faker.datatype.number({ min: 0, max: 3 }));
   // console.log(img);
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div
+      onClick={() => {
+        // console.log(data);
+        navigate("/product", { state: data });
+      }}
+    >
       <>
         <div className="max-w-sm bg-white rounded-lg  shadow-md">
           {img ? (
