@@ -31,7 +31,7 @@ const SideBar = () => {
   return (
     <>
       <div
-        className={` fixed top-0 min-w-[60%] sm:min-w-[15%] grow  z-10 flex flex-col border bg-[#ffffff67] bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full backdrop-blur-sm `}
+        className={` fixed top-0 min-w-[60%] sm:min-w-[15%] grow  z-30 flex flex-col border bg-[#ffffff67] bg-opacity-90 p-5 sm:p-10 ${drawerStatus} transition ease-linear duration-150 overflow-auto min-h-full backdrop-blur-sm `}
       >
         <div className=" flex flex-col justify-center sm:items-center items-start mt-8 mb-6">
           <button className="flex sm:w-44 w-36 border rounded-full p-7">
