@@ -6,7 +6,7 @@ const Header = () => {
   const drawerStatus = useSideBarStateStore((state) => state.isVisible);
   return (
     // bg-violet-700 sm:bg-white
-    <nav className=" fixed min-w-[100vw] z-50 top-0 flex items-center p-3 flex-wrap text-white sm:text-black backdrop-blur-sm ">
+    <nav className=" fixed min-w-[100vw] z-50 top-0 flex items-center p-3 flex-wrap text-white sm:text-black backdrop-blur-sm bg-[#11111134]">
       <div className="flex flex-wrap flex-row">
         <button
           className="w-8 mt-2 sm:mt-0 "
