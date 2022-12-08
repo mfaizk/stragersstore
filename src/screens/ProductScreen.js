@@ -1,17 +1,35 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import useCartStore from "../stores/cartStore";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 import LoadingScreen from "./LoadingScreen";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
 const ProductScreen = () => {
   const { state } = useLocation();
   const [addToFav, setaddToFav] = useState(false);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+
   //   const item = useCartStore((state) => state.cartData);
-  useEffect(() => {
-    console.log(state.productImageUrl);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(state.productImageUrl);
+  // }, [state]);
+  function changePhoto(pos) {
+    if (pos === "forward") {
+      if (currentPhotoIndex === 3) {
+        return setCurrentPhotoIndex(0);
+      } else {
+        return setCurrentPhotoIndex(currentPhotoIndex + 1);
+      }
+    } else {
+      if (currentPhotoIndex === 0) {
+        return setCurrentPhotoIndex(3);
+      } else {
+        return setCurrentPhotoIndex(currentPhotoIndex - 1);
+      }
+    }
+  }
 
   return (
     <>
@@ -19,8 +37,31 @@ const ProductScreen = () => {
         <div className="min-w-full min-h-screen bg-blue-500 flex items-start mt-20 md:mt-0 md:items-center justify-center  ">
           <div className="container flex  justify-between bg-yellow-400 flex-col md:flex-row">
             {/* Primary Image Card Start */}
-            <div className="flex md:min-w-[30rem] items-center justify-center  bg-lime-900 p-9">
-              <img src={state.productImageUrl[0]} alt="" />
+
+            <div
+              className={`flex md:min-w-[30rem] items-center justify-start  bg-lime-400`}
+            >
+              <BsArrowLeftCircle
+                size={100}
+                color="red"
+                className="h-14 w-14 relative z-20"
+                onClick={() => {
+                  changePhoto("forward");
+                }}
+              />
+              <img
+                src={state.productImageUrl[currentPhotoIndex]}
+                alt=""
+                className=" z-10 md:min-w-[30rem] "
+              />
+              <BsArrowRightCircle
+                className="h-14 w-14 z-30 relative right-0"
+                size={100}
+                color="blue"
+                onClick={() => {
+                  changePhoto("backward");
+                }}
+              />
             </div>
             {/* Primary Image Card End */}
 
