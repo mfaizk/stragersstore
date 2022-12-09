@@ -87,13 +87,7 @@ const Body = ({ children }) => {
                     // console.log(e);
                     return (
                       <>
-                        <ResumeCourse
-                          name={e ? e?.productName : " "}
-                          // name="jj"
-                          chapter="2"
-                          img={e ? `${e?.productImageUrl[0]} ` : ""}
-                          data={e ? e : {}}
-                        />
+                        <ResumeCourse data={e} />
                       </>
                     );
                   })

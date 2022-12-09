@@ -1,23 +1,28 @@
 // import welcomeLogo from "../../../assets/welcomeLogo.png";
 import { MdPlayCircleFilled } from "react-icons/md";
 import { useNavigate } from "react-router";
+import useCartStore from "../../../stores/cartStore";
 import { LoadingImage } from "../../LoadingImage";
-let ResumeCourse = ({ name, chapter, img, data }) => {
-  // console.log(faker.datatype.number({ min: 0, max: 3 }));
-  // console.log(img);
+let ResumeCourse = ({ data }) => {
+  const { productName: name, chapter, productImageUrl: img } = data;
+  const imageData = img ? img[0] : null;
   const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addtoCart);
 
   return (
-    <div
-      onClick={() => {
-        // console.log(data);
-        navigate("/product", { state: data });
-      }}
-    >
+    <div>
       <>
         <div className="max-w-sm bg-white rounded-lg  shadow-md">
-          {img ? (
-            <img className="rounded-t-lg" src={img} alt="" />
+          {imageData ? (
+            <img
+              className="rounded-t-lg"
+              src={imageData}
+              alt=""
+              onClick={() => {
+                // console.log(data);
+                navigate("/product", { state: data });
+              }}
+            />
           ) : (
             <LoadingImage />
           )}
@@ -26,7 +31,12 @@ let ResumeCourse = ({ name, chapter, img, data }) => {
               <p className="mb-3 font-normal text-gray-700 ">
                 chapter-{chapter}
               </p>
-              <button className="ml-auto w-auto  text-sm font-medium text-center rounded-full">
+              <button
+                className="ml-auto w-auto  text-sm font-medium text-center rounded-full"
+                onClick={() => {
+                  addToCart(data);
+                }}
+              >
                 <MdPlayCircleFilled
                   className=" text-white bg-violet-900 rounded-full"
                   size={30}

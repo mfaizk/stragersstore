@@ -6,11 +6,12 @@ import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 import LoadingScreen from "./LoadingScreen";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
+import useCartStore from "../stores/cartStore";
 const ProductScreen = () => {
   const { state } = useLocation();
   const [addToFav, setaddToFav] = useState(false);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-
+  const addToCart = useCartStore((state) => state.addtoCart);
   //   const item = useCartStore((state) => state.cartData);
   // useEffect(() => {
   //   console.log(state.productImageUrl);
@@ -103,7 +104,12 @@ const ProductScreen = () => {
               <div className="p-4">size Slider</div>
               <div className=" flex items-center justify-between flex-col  gap-4">
                 <div className=" flex  grow w-[100%] items-center justify-center gap-2">
-                  <button className="bg-[#5e0098] grow text-white p-3 rounded-md w-[100%]">
+                  <button
+                    className="bg-[#5e0098] grow text-white p-3 rounded-md w-[100%]"
+                    onClick={() => {
+                      addToCart(state);
+                    }}
+                  >
                     Add to cart
                   </button>
                   {addToFav ? (
