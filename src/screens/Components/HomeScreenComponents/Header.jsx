@@ -3,10 +3,12 @@ import welcomeLogo from "../../../assets/asset-xl/logo-xl.png";
 import useSideBarStateStore from "../../../stores/sideBarStateStore";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCartStore from "../../../stores/cartStore";
+import { useNavigate } from "react-router";
 const Header = () => {
   const drawerHandler = useSideBarStateStore((state) => state.visibleSwitch);
   const drawerStatus = useSideBarStateStore((state) => state.isVisible);
   const cardData = useCartStore((state) => state.cartData);
+  const nav = useNavigate();
 
   return (
     // bg-violet-700 sm:bg-white
@@ -21,7 +23,7 @@ const Header = () => {
         >
           <FaBars size={30} />
         </button>
-        <button className="hidden sm:flex">
+        <button className="hidden sm:flex" onClick={() => nav("/home")}>
           <img src={welcomeLogo} className=" ml-4 w-56 lg:w-72 " alt="" />
         </button>
       </div>
@@ -34,7 +36,11 @@ const Header = () => {
             <FaBell size={25} />
           </button>
 
-          <button>
+          <button
+            onClick={() => {
+              nav("cart");
+            }}
+          >
             {cardData && cardData.length === 0 ? (
               <></>
             ) : (
